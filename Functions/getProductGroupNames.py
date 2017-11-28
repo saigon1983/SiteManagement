@@ -1,15 +1,11 @@
 def getProductGroupNames(base):
-    TYPES = 'MWC'
     # Функция составляет словарь соответствия наименования товарных групп 1 или 2 в 1С, таблицах и на сайте
-    if base not in TYPES:
-        raise ValueError('Базовый показатель для определния словаря соответствий указан неверно! Введите "C", "M" или "W"!')
+    if base not in 'MWC':
+        raise ValueError('Базовый показатель для определения словаря соответствий указан неверно! Введите "C", "M" или "W"!')
     import openpyxl
-    from openpyxl.utils import get_column_letter as colLetter
-    from openpyxl.utils import coordinate_from_string, column_index_from_string
+    from openpyxl.utils import column_index_from_string
     from Config.constants import DATATABLE
-    TYPES = TYPES.replace(base, '')
-    workBook = openpyxl.load_workbook(DATATABLE)
-    workPage = workBook.active
+    workPage = openpyxl.load_workbook(DATATABLE).active
     HEADERS = {}
     RESULT = {}
     for cell in workPage[1]:
